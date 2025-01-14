@@ -1,17 +1,13 @@
 {
   "expo": {
-    "name": "front-end-mobile",
-    "slug": "front-end-mobile",
+    "name": "front-end-test",
+    "slug": "front-end-test",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
@@ -28,7 +24,50 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitir que o Cidade-Monitor utilize sua localização",
+          "isAndroidBackgroundLocationEnabled": true
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Permitir que o Cidade-Monitor acesse o Face ID."
+        }
+
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permitir que o Cidade-Monitor acesse sua camera"
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Permitir que o Cidade-Monitor acesse suas fotos",
+          "savePhotosPermission": "Permitir que o Cidade-Monitor salve fotos",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permitir que o Cidade-Monitor compartilhe suas fotos"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,51 +1,48 @@
-import { ImageBackground, StyleSheet, Text, View, Pressable } from "react-native";
-import { BACKEND_URL, HOST_URL } from "../../constants/backend_url";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, router } from "expo-router";
+import { ImageBackground, StyleSheet, View } from "react-native";
+import { BACKEND_URL } from "../../constants/backend_url";
 import { Button, Icon } from "@rneui/themed";
-import { TitleScreen } from "../../components/titles/TitleScreen";
+import { TitleScreen } from "../../components/titleScreen/TitleScreen";
+import { SubtitleScreen } from "../../components/subtitleScreen/SubtitleScreen";
+import { ButtonForm } from "../../components/buttonForm/ButtonForm";
 
 export default function Description() {
 
     const threat = useLocalSearchParams()
 
     const _replaceUrlImage = (url: string | any) => {
-        const parts = url.split(HOST_URL)
-        return parts.join(BACKEND_URL);
+        const parts = url.split('http://localhost:3001')
+        return parts.join(BACKEND_URL)
     }
 
-    const _formRegister = () => {
-        router.push({ pathname: '/register', params: { id: threat.id, title: threat.title }})
+    const _formRegisterThreat = () => {
+        router.push({ pathname: '/(app)/threat/threat', params: { id: threat.id, title: threat.title } })
     }
 
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={{uri: _replaceUrlImage(threat?.image) }}
+                source={{ uri: _replaceUrlImage(threat?.image) }}
                 resizeMode="cover"
                 style={styles.image}
             >
                 <Button
                     containerStyle={styles.buttonContainer}
                     buttonStyle={styles.buttonStyle}
-                    onPress={() => router.push({ pathname: '/' })}
+                    onPress={() => router.push({ pathname: '/(app)/home' })}
                     icon={<Icon name="arrow-back" color="#3d72de"/>}
                 />
                 <View style={styles.bottomSheet}>
                     <View>
-                        <TitleScreen>{threat.title}</TitleScreen>
+                        <TitleScreen text={threat.title}/>
                     </View>
-                    <View style={styles.containerSubTitle}>
-                        <Text style={styles.subTitleText}>{threat.description}</Text>
+                    <View style={styles.containrSubTitle}>
+                        <SubtitleScreen text={threat.description}/>
                     </View>
-                    <View style={{ alignItems: "center", height: 50, justifyContent: "center", width: "100%" }}>
-                        <Button
-                            title={'Registrar ameaça'}
-                            buttonStyle={styles.bottomButton}
-                            onPress={() => _formRegister()}
-                        />
+                    <View style={styles.containerButton}>
+                        <ButtonForm title="Registrar ameaça" height={50} width={400} onPressButton={() => _formRegisterThreat()}/>
                     </View>
                 </View>
-                
             </ImageBackground>
         </View>
     )
@@ -57,44 +54,36 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        flex: 1,
-        // justifyContent: "center"
+        flex: 1
     },
     buttonContainer: {
-        marginTop: '2%',
+        marginTop: '10%',
         marginLeft: '2%',
-        width: '10%'
+        width: '10%',
+        elevation: 20,
+        borderRadius: 50
     },
     buttonStyle: {
         backgroundColor: '#fff',
         borderRadius: 50
     },
-    bottomButtonContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        height: 40
-    },
-    bottomButton: {
-        width: 300,
-        borderRadius: 10
-    },
     bottomSheet: {
-        height: '60%',
+        height: '70%',
         backgroundColor: '#fff',
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
         marginTop: '50%'
     },
-    containerSubTitle: {
-        height: '90%',
-        display: 'flex',
+    containrSubTitle: {
+        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    subTitleText: {
-        textAlign: 'justify',
-        fontWeight: 'bold',
-        color: "#A9A9A9",
-        fontSize: 18
+    containerButton: {
+        alignItems: 'center',
+        height: 150,
+        justifyContent: 'center',
+        width: '100%',
+        paddingBottom: 30,
     }
 })

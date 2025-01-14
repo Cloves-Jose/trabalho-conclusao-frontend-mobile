@@ -1,8 +1,6 @@
-import { Platform } from 'react-native';
-import { API_LOCAL_URL_IPHONE, API_LOCAL_URL_ANDROID, API_LOCAL_HOST } from '@env'
+import { Platform } from "react-native";
 
-const BACKEND_URL = Platform.OS === 'ios' ? API_LOCAL_URL_IPHONE : API_LOCAL_URL_ANDROID
-const HOST_URL = API_LOCAL_HOST
+// Local
+const BACKEND_URL = Platform.OS === 'ios' ? process.env.EXPO_PUBLIC_API_LOCAL_URL_IPHONE : process.env.EXPO_PUBLIC_API_LOCAL_URL_ANDROID;
 
-export { BACKEND_URL, HOST_URL }
-
+export { BACKEND_URL }
